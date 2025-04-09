@@ -1,0 +1,76 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 24 95% 53%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border selection:bg-orange-500/10 selection:text-orange-400;
+  }
+  
+  body {
+    @apply bg-dark text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-50 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-orange-800;
+  }
+
+  .glass-card {
+    @apply bg-dark-200/80 backdrop-blur-sm border border-dark-50/20 shadow-lg;
+  }
+
+  .message-bubble {
+    @apply rounded-2xl p-3 shadow-sm max-w-[85%];
+  }
+
+  .user-message {
+    @apply message-bubble bg-orange-500 text-white ml-auto;
+  }
+
+  .ai-message {
+    @apply message-bubble bg-dark-50 text-white mr-auto;
+  }
+
+  .animate-entry {
+    @apply animate-bounce-in;
+  }
+}
