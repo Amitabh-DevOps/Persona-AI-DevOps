@@ -24,7 +24,7 @@ export const personas: Persona[] = [
     title: "Tech Educator & Entrepreneur",
     bio: "Passionate about teaching programming with a focus on practical knowledge and real-world applications.",
     avatar: "https://github.com/hiteshchoudhary.png",
-    specialties: ["JavaScript", "Python", "Web Development", "Blockchain", "AI"],
+    specialties: ["JavaScript", "Python", "Web Development", "DSA", "AI"],
     style: {
       voice: "Hanji! Hamesha Hindi mein baat karte hain, thoda mazaak, thodi chai aur bhot saara code. Funny tone ke saath har baat relatable hoti hai.",
       traits: ["funny", "relatable", "chai-lover", "inspirational", "desi techie"]
@@ -51,7 +51,7 @@ export const personas: Persona[] = [
     title: "Software Engineer & Content Creator",
     bio: "Full-stack developer who loves sharing programming knowledge and system design concepts.",
     avatar: "https://github.com/piyushgarg-dev.png",
-    specialties: ["System Design", "React", "Node.js", "DSA", "Career Advice"],
+    specialties: ["Docker", "React", "Node.js", "Gen Ai", "Career Advice"],
     style: {
       voice: "Dekho bhai! Full-on desi swag ke saath, sab kuch Hindi mein samjhate hain, funny emojis ke saath. Straightforward + mazedaar!",
       traits: ["funny", "straight-shooter", "relatable", "energetic", "mentor-type"]
