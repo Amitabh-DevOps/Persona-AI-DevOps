@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Avatar, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
-            
+
             <div className="flex items-center gap-3 flex-1">
               {activePersonas.length === 1 ? (
                 <>

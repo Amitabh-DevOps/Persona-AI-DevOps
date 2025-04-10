@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { format } from "date-fns";
@@ -18,11 +17,12 @@ const MessageBubble: React.FC<MessageProps> = ({ message, personas }) => {
   const isUserMessage = message.sender === "user";
   const isSystemMessage = message.sender === "system";
   const isGroupMessage = message.sender === "group";
-  
-  const persona = isUserMessage || isSystemMessage || isGroupMessage 
-    ? null 
-    : personas.find(p => p.id === message.sender);
-  
+
+  const persona =
+    isUserMessage || isSystemMessage || isGroupMessage
+      ? null
+      : personas.find((p) => p.id === message.sender);
+
   if (isSystemMessage) {
     return (
       <div className="flex justify-center my-4 animate-entry">
@@ -32,7 +32,7 @@ const MessageBubble: React.FC<MessageProps> = ({ message, personas }) => {
       </div>
     );
   }
-  
+
   if (isUserMessage) {
     return (
       <div className="flex flex-col items-end mb-4 animate-entry">
@@ -45,7 +45,7 @@ const MessageBubble: React.FC<MessageProps> = ({ message, personas }) => {
       </div>
     );
   }
-  
+
   if (isGroupMessage) {
     return (
       <div className="flex gap-3 mb-4 animate-entry">
@@ -65,7 +65,7 @@ const MessageBubble: React.FC<MessageProps> = ({ message, personas }) => {
       </div>
     );
   }
-  
+
   return (
     <div className="flex gap-3 mb-4 animate-entry">
       <Avatar className="h-8 w-8 mt-1">

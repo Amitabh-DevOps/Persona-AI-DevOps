@@ -11,12 +11,14 @@ import { generateAIResponse } from "@/utils/aiResponse";
 
 const Index = () => {
   const [activePersonas, setActivePersonas] = useState<Persona[]>([]);
-  const [messages, setMessages] = useState<{
-    id: string;
-    content: string;
-    sender: string;
-    timestamp: Date;
-  }[]>([]);
+  const [messages, setMessages] = useState<
+    {
+      id: string;
+      content: string;
+      sender: string;
+      timestamp: Date;
+    }[]
+  >([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isSelectionView, setIsSelectionView] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,9 +41,9 @@ const Index = () => {
   };
 
   const handlePersonaSelect = (persona: Persona) => {
-    setActivePersonas(current => 
-      current.find(p => p.id === persona.id)
-        ? current.filter(p => p.id !== persona.id)
+    setActivePersonas((current) =>
+      current.find((p) => p.id === persona.id)
+        ? current.filter((p) => p.id !== persona.id)
         : [...current, persona]
     );
   };
@@ -50,35 +52,37 @@ const Index = () => {
     setActivePersonas(personas);
   };
 
+  // start chat section
   const handleStartChat = async () => {
     if (activePersonas.length === 0) return;
-    
+
     setIsSelectionView(false);
     setIsLoading(true);
-    
+
     try {
       if (activePersonas.length === 1) {
-        const response = await generateAIResponse("Say hello and introduce yourself briefly", [activePersonas[0]]);
+        const response = await generateAIResponse(
+          "Say hello and introduce yourself briefly",
+          [activePersonas[0]]
+        );
         addMessage(response as string, activePersonas[0].id);
       } else {
-        // For group chat with randomized responses
-        const responses = await generateAIResponse(
-          "Say hello and introduce yourself briefly", 
+        const responses = (await generateAIResponse(
+          "Say hello and introduce yourself briefly",
           activePersonas
-        ) as Record<string, string>;
-        
-        // Randomize the order of personas
-        const shuffledPersonaIds = Object.keys(responses).sort(() => Math.random() - 0.5);
-        
-        // Add first persona response immediately
+        )) as Record<string, string>; // first string is personaId, second is response eg. {"hitesh": "hello, I am Hitesh"}
+
+        const shuffledPersonaIds = Object.keys(responses).sort(
+          () => Math.random() - 0.5
+        );
+
         const firstPersonaId = shuffledPersonaIds[0];
         addMessage(responses[firstPersonaId], firstPersonaId);
-        
-        // Add remaining persona responses with staggered delays
+
         for (let i = 1; i < shuffledPersonaIds.length; i++) {
           const personaId = shuffledPersonaIds[i];
           const randomDelay = 1000 + Math.random() * 2000; // 1-3 second delay
-          
+
           setTimeout(() => {
             addMessage(responses[personaId], personaId);
           }, randomDelay);
@@ -86,7 +90,10 @@ const Index = () => {
       }
     } catch (error) {
       console.error("Error getting welcome message:", error);
-      addMessage(`Hello! How can I help you today?`, activePersonas[0]?.id || "system");
+      addMessage(
+        `Hello! How can I help you today?`,
+        activePersonas[0]?.id || "system"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -94,31 +101,32 @@ const Index = () => {
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
-    
+
     addMessage(inputMessage, "user");
     const sentMessage = inputMessage;
     setInputMessage("");
     setIsLoading(true);
-    
+
     try {
       const response = await generateAIResponse(sentMessage, activePersonas);
-      
+
       if (typeof response === "string") {
-        // Single persona response
+        // we directly get single string in the single persona case
         addMessage(response, activePersonas[0].id);
       } else {
-        // Multiple responses with random order and delays
-        const personaIds = Object.keys(response).sort(() => Math.random() - 0.5);
-        
-        // Show first response immediately
+        // we get an object of string for grp with key value eg. {"hitesh": "hello, I am Hitesh"}
+
+        const personaIds = Object.keys(response).sort(
+          () => Math.random() - 0.5
+        );
+
         const firstPersonaId = personaIds[0];
         addMessage(response[firstPersonaId], firstPersonaId);
-        
-        // Show other responses with delays
+
         for (let i = 1; i < personaIds.length; i++) {
           const personaId = personaIds[i];
           const randomDelay = 1200 + Math.random() * 2200; // 0.8-3 second delay
-          
+
           setTimeout(() => {
             addMessage(response[personaId], personaId);
           }, randomDelay);
@@ -134,8 +142,8 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-dark-500">
-      <ChatHeader 
-        activePersonas={activePersonas} 
+      <ChatHeader
+        activePersonas={activePersonas}
         isSelectionView={isSelectionView}
         onBackClick={() => {
           setIsSelectionView(true);
@@ -143,30 +151,36 @@ const Index = () => {
           setActivePersonas([]);
         }}
       />
-      
+
       <main className="flex-1 p-4 mt-10 overflow-hidden">
         {isSelectionView ? (
           <div className="container max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-              ☕ Chai With AI Buddies
+            <h1 className="text-4xl font-bold mb-4 ">
+            ☕ <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Chai With AI Buddies</span>
             </h1>
             <p className="text-muted-foreground mb-8">
               Select who you'd like to chat with today
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {personas.map((persona) => (
                 <PersonaCard
                   key={persona.id}
                   persona={persona}
-                  isSelected={activePersonas.some(p => p.id === persona.id)}
+                  isSelected={activePersonas.some((p) => p.id === persona.id)}
                   onClick={() => handlePersonaSelect(persona)}
                 />
               ))}
             </div>
-            
+
             <p className="text-muted-foreground mb-4">
-              Chat with both Hitesh and Piyush at the same time! <span onClick={handleGroupSelect} className="underline cursor-pointer text-orange-500">Select both</span>
+              Chat with both Hitesh and Piyush at the same time!{" "}
+              <span
+                onClick={handleGroupSelect}
+                className="underline cursor-pointer text-orange-500"
+              >
+                Select both
+              </span>
             </p>
             <Button
               size="lg"
@@ -174,7 +188,9 @@ const Index = () => {
               disabled={activePersonas.length === 0}
               onClick={handleStartChat}
             >
-              {activePersonas.length >= 2 ? "Start Group Chat" : `Start Chat with ${activePersonas[0]?.name || ''}`}
+              {activePersonas.length >= 2
+                ? "Start Group Chat"
+                : `Start Chat with ${activePersonas[0]?.name || ""}`}
             </Button>
           </div>
         ) : (
@@ -198,13 +214,15 @@ const Index = () => {
                 <div ref={messagesEndRef} />
               </div>
             </ScrollArea>
-            
+
             <div className="flex gap-2 mb-4">
               <Input
                 placeholder="Type your message..."
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSendMessage()}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && !e.shiftKey && handleSendMessage()
+                }
                 className="bg-dark-100 border-dark-50"
               />
               <Button
