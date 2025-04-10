@@ -3,6 +3,7 @@ import { Avatar, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { type Persona } from "@/data/personas";
+import { FaGithub } from "react-icons/fa";
 
 interface ChatHeaderProps {
   activePersonas: Persona[];
@@ -17,7 +18,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
   return (
     <header className="sticky top-0 z-10 border-b border-dark-100 bg-dark-400/80 backdrop-blur-md p-4">
-      <div className="container max-w-4xl mx-auto flex items-center justify-between">
+      <div className="md:container max-w-4xl mx-auto flex items-center justify-between">
         {isSelectionView ? (
           <h1 className="text-xl font-bold text-white">
             ☕ Chai With AI Buddies
@@ -62,6 +63,12 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
             </div>
           </>
         )}
+        <a
+          href="https://github.com/Aasuyadav1/ChatWithCode"
+          target="_blank"
+        >
+          <FaGithub className="text-3xl" />
+        </a>
       </div>
     </header>
   );

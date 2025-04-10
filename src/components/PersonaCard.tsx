@@ -44,7 +44,7 @@ const PersonaCard: React.FC<PersonaCardProps> = ({
           </Avatar>
           <span>{persona.name}</span>
         </CardTitle>
-        <CardDescription className="!text-left mt-2">
+        <CardDescription className="!text-left !mt-4">
           {persona.title}
         </CardDescription>
       </CardHeader>

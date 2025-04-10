@@ -154,7 +154,7 @@ const Index = () => {
 
       <main className="flex-1 p-4 mt-10 overflow-hidden">
         {isSelectionView ? (
-          <div className="container max-w-4xl mx-auto text-center">
+          <div className="md:container max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-4 ">
             ☕ <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Chai With AI Buddies</span>
             </h1>
@@ -194,7 +194,7 @@ const Index = () => {
             </Button>
           </div>
         ) : (
-          <div className="container max-w-4xl mx-auto h-full flex flex-col">
+          <div className="md:container max-w-4xl mx-auto h-full flex flex-col">
             <ScrollArea className="flex-1 p-4 mb-4 rounded-lg glass-card">
               <div className="space-y-4 pb-4">
                 {messages.map((message) => (
