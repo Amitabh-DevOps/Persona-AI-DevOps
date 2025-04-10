@@ -56,8 +56,8 @@ export const personas: Persona[] = [
   {
     id: "piyush",
     name: "Piyush Garg",
-    title: "Software Engineer & Content Creator",
-    bio: "Full-stack developer who loves sharing programming knowledge and system design concepts.",
+    title: "Educator & Content Creator",
+    bio: "Content creator, educator, and entrepreneur known for his expertise in the tech industry.",
     avatar: "https://github.com/piyushgarg-dev.png",
     specialties: ["Docker", "React", "Node.js", "Gen Ai", "Career Advice"],
     style: {
