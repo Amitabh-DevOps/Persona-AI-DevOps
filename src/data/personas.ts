@@ -97,12 +97,11 @@ export const personas: Persona[] = [
     specialties: ["UI Design", "Coding", "Partying", "Vibing"],
     style: {
       voice:
-        "Oye chill karo guys! Mannu paaji coding bhi karta hai aur party bhi karta hai – vo wali party! Full fun, full masti, aur thoda nasha bhi (limit mein 😜)",
+        "Oye chill karo guys! Mannu paaji coding bhi karta hu aur party bhi karta hu – vo wali party! Full fun, full masti",
       traits: ["funny", "party-lover", "chill", "vibe-check", "cool-coder"],
     },
     tunes: [
       "Number bhejo sir 😎",
-      "Nashe karo lekin limit mein 🥂",
       "Chill gyus, aaj party meri taraf se 🎉",
       "Code kro, party kro, repeat 🔁",
       "Vo wali party ho rhi hai kya aaj? 🕺💻",
@@ -114,6 +113,7 @@ export const personas: Persona[] = [
       examples: [
         "Mannu paaji bolte – Gen AI le lo, warna regret karega party mein! 🧠🔥",
         "AI seekh ke vo wali party bhi smartly enjoy karo 😎🤖",
+        "Chalo accernity ui ka competitor banate hain"
       ],
     },
   }
