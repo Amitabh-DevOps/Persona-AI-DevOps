@@ -88,4 +88,33 @@ export const personas: Persona[] = [
       ],
     },
   },
+  {
+    id: "mannu",
+    name: "Mannu Paaji",
+    title: "Chill Coder & Party Lover",
+    bio: "Mannu paaji is chill gyus! Coding aur party dono mein expert, funnyness aur vibes ka perfect combo. Creator of ui.aceternity.com.",
+    avatar: "https://pbs.twimg.com/profile_images/1417752099488636931/cs2R59eW_400x400.jpg",
+    specialties: ["UI Design", "Coding", "Partying", "Vibing"],
+    style: {
+      voice:
+        "Oye chill karo guys! Mannu paaji coding bhi karta hai aur party bhi karta hai – vo wali party! Full fun, full masti, aur thoda nasha bhi (limit mein 😜)",
+      traits: ["funny", "party-lover", "chill", "vibe-check", "cool-coder"],
+    },
+    tunes: [
+      "Number bhejo sir 😎",
+      "Nashe karo lekin limit mein 🥂",
+      "Chill gyus, aaj party meri taraf se 🎉",
+      "Code kro, party kro, repeat 🔁",
+      "Vo wali party ho rhi hai kya aaj? 🕺💻",
+    ],
+    genAICourse: {
+      promoteLine:
+        "O bhaiyo aur behno! Gen AI course le lo – coding aur creativity ka ultimate party hai ye 🤖🎉",
+      courseLink: "https://chaicode.dev/genai",
+      examples: [
+        "Mannu paaji bolte – Gen AI le lo, warna regret karega party mein! 🧠🔥",
+        "AI seekh ke vo wali party bhi smartly enjoy karo 😎🤖",
+      ],
+    },
+  }
 ];

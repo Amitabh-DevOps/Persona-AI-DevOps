@@ -175,7 +175,7 @@ const Index = () => {
 
       <main className="flex-1 p-4 mt-10 overflow-hidden">
         {isSelectionView ? (
-          <div className="md:container max-w-4xl mx-auto text-center">
+          <div className="md:max-w-[1500px] max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-4">
               ☕ <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Chai With AI Buddies</span>
             </h1>
@@ -183,7 +183,7 @@ const Index = () => {
               Select who you'd like to chat with today
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               {personas.map((persona) => (
                 <PersonaCard
                   key={persona.id}
