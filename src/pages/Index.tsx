@@ -195,12 +195,12 @@ const Index = () => {
             </div>
 
             <p className="text-muted-foreground mb-4">
-              Chat with both Hitesh and Piyush at the same time!{" "}
+              Chat with both Hitesh, Piyush and Mannu at the same time!{" "}
               <span
                 onClick={handleGroupSelect}
                 className="underline cursor-pointer text-orange-500"
               >
-                Select both
+                Select All
               </span>
             </p>
             <Button
