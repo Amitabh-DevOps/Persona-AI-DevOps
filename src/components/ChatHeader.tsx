@@ -18,7 +18,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
   return (
     <header className="sticky top-0 z-10 border-b border-dark-100 bg-dark-400/80 backdrop-blur-md p-4">
-      <div className="md:container max-w-4xl mx-auto flex items-center justify-between">
+      <div className="md:max-w-[1500px] max-w-4xl mx-auto flex items-center justify-between">
         {isSelectionView ? (
           <h1 className="text-xl font-bold text-white">
             ☕ Chai With AI Buddies
