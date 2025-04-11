@@ -2,12 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send } from "lucide-react";
+import { Send, Settings } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Slider
+} from "@/components/ui/slider";
 import ChatHeader from "@/components/ChatHeader";
 import PersonaCard from "@/components/PersonaCard";
 import MessageBubble from "@/components/MessageBubble";
 import { personas, type Persona } from "@/data/personas";
 import { generateAIResponse } from "@/utils/aiResponse";
+
+type PersonalityTone = "default" | "funny" | "advice" | "educational";
 
 const Index = () => {
   const [activePersonas, setActivePersonas] = useState<Persona[]>([]);
@@ -23,6 +33,8 @@ const Index = () => {
   const [isSelectionView, setIsSelectionView] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [temperature, setTemperature] = useState<number>(0.7);
+  const [personalityTone, setPersonalityTone] = useState<PersonalityTone>("default");
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -63,14 +75,18 @@ const Index = () => {
       if (activePersonas.length === 1) {
         const response = await generateAIResponse(
           "Say hello and introduce yourself briefly",
-          [activePersonas[0]]
+          [activePersonas[0]],
+          temperature,
+          personalityTone
         );
         addMessage(response as string, activePersonas[0].id);
       } else {
         const responses = (await generateAIResponse(
           "Say hello and introduce yourself briefly",
-          activePersonas
-        )) as Record<string, string>; // first string is personaId, second is response eg. {"hitesh": "hello, I am Hitesh"}
+          activePersonas,
+          temperature,
+          personalityTone
+        )) as Record<string, string>;
 
         const shuffledPersonaIds = Object.keys(responses).sort(
           () => Math.random() - 0.5
@@ -108,7 +124,12 @@ const Index = () => {
     setIsLoading(true);
 
     try {
-      const response = await generateAIResponse(sentMessage, activePersonas);
+      const response = await generateAIResponse(
+        sentMessage, 
+        activePersonas,
+        temperature,
+        personalityTone
+      );
 
       if (typeof response === "string") {
         // we directly get single string in the single persona case
@@ -155,8 +176,8 @@ const Index = () => {
       <main className="flex-1 p-4 mt-10 overflow-hidden">
         {isSelectionView ? (
           <div className="md:container max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-4 ">
-            ☕ <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Chai With AI Buddies</span>
+            <h1 className="text-4xl font-bold mb-4">
+              ☕ <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Chai With AI Buddies</span>
             </h1>
             <p className="text-muted-foreground mb-8">
               Select who you'd like to chat with today
@@ -225,6 +246,60 @@ const Index = () => {
                 }
                 className="bg-dark-100 border-dark-50"
               />
+              
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    className="bg-dark-100 border-dark-50 hover:bg-orange-500/20"
+                  >
+                    <Settings className="h-4 w-4 text-orange-500" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 bg-dark-100 border-dark-50">
+                  <div className="space-y-4">
+                    <h3 className="font-medium text-orange-500">AI Settings</h3>
+                    
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-sm">Temperature: {temperature.toFixed(1)}</span>
+                      </div>
+                      <Slider
+                        defaultValue={[temperature]}
+                        max={1}
+                        min={0}
+                        step={0.1}
+                        onValueChange={(value) => setTemperature(value[0])}
+                        className="cursor-pointer"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Lower for consistent, higher for creative responses
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <span className="text-sm">Personality Tone</span>
+                      <div className="grid grid-cols-2 gap-2">
+                        {(["default", "funny", "advice", "educational"] as const).map((tone) => (
+                          <Button
+                            key={tone}
+                            variant={personalityTone === tone ? "default" : "outline"}
+                            className={personalityTone === tone 
+                              ? "bg-orange-500 hover:bg-orange-600" 
+                              : "bg-dark-100 hover:bg-orange-500/20 border border-orange-600"
+                            }
+                            onClick={() => setPersonalityTone(tone)}
+                          >
+                            {tone.charAt(0).toUpperCase() + tone.slice(1)}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              
               <Button
                 className="bg-orange-500 hover:bg-orange-600"
                 onClick={handleSendMessage}
