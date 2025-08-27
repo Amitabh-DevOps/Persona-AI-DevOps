@@ -64,7 +64,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
           </>
         )}
         <a
-          href="https://github.com/Aasuyadav1/ChatWithCode"
+          href="https://github.com/Amitabh-DevOps/Persona-AI-DevOps"
           target="_blank"
         >
           <FaGithub className="text-3xl" />
