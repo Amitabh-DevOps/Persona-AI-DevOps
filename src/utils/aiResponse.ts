@@ -87,7 +87,7 @@ export async function generateAIResponse(
         - Stay true to your unique voice and personality`;
       const prompt = context + userInstruction;
       const result = await model.generateContent(prompt);
-      // response format eg. "hello, I am Hitesh"
+      // response format eg. "hello, I am Shubham"
       return result.response.text();
     } else {
       const responses = {};
@@ -107,7 +107,7 @@ export async function generateAIResponse(
         const result = await model.generateContent(prompt);
         responses[persona.id] = result.response.text();
       }
-      // response format eg. {"hitesh": "hello, I am Hitesh"}
+      // response format eg. {"Shubham": "hello, I am Shubham"}
       return responses;
     }
   } catch (error) {

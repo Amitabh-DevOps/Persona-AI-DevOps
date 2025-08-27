@@ -135,7 +135,7 @@ const Index = () => {
         // we directly get single string in the single persona case
         addMessage(response, activePersonas[0].id);
       } else {
-        // we get an object of string for grp with key value eg. {"hitesh": "hello, I am Hitesh"}
+        // we get an object of string for grp with key value eg. {"Shubham": "hello, I am Shubham"}
 
         const personaIds = Object.keys(response).sort(
           () => Math.random() - 0.5
@@ -195,7 +195,7 @@ const Index = () => {
             </div>
 
             <p className="text-muted-foreground mb-4">
-              Chat with both Hitesh, Piyush and Mannu at the same time!{" "}
+              Chat with both Shubham, Sandip and Amitabh at the same time!{" "}
               <span
                 onClick={handleGroupSelect}
                 className="underline cursor-pointer text-orange-500"
