@@ -31,32 +31,8 @@ RUN rm -rf ./*
 COPY --from=builder /app/dist .
 
 # Copy nginx configuration
-COPY <<EOF /etc/nginx/conf.d/default.conf
-server {
-    listen 80;
-    server_name localhost;
-    
-    location / {
-        root /usr/share/nginx/html;
-        index index.html index.htm;
-        try_files \$uri \$uri/ /index.html;
-    }
-    
-    # Enable gzip compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_proxied expired no-cache no-store private must-revalidate auth;
-    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/javascript;
-    
-    # Cache static assets
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-}
-EOF
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-CMD 
+CMD ["nginx", "-g", "daemon off;"] 
