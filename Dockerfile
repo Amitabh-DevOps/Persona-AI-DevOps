@@ -19,10 +19,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the application
-RUN npm run build
-
 EXPOSE 80
 
-# Use vite preview which can handle runtime env vars better
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "80"] 
+# Build and run with environment variables passed at runtime
+CMD sh -c 'npm run build && npm run preview -- --host 0.0.0.0 --port 80' 
