@@ -5,11 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - VITE_GEMINI_API=${VITE_GEMINI_API}
     ports:
       - "3000:80"
-    environment:
-      # Pass environment variables to the build process
-      - VITE_GEMINI_API=${VITE_GEMINI_API}
     restart: unless-stopped
     
   # Optional: Add a development service

@@ -17,6 +17,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Accept build args for environment variables
+ARG VITE_GEMINI_API
+ENV VITE_GEMINI_API=$VITE_GEMINI_API
+
 # Build the application
 RUN npm run build
 
