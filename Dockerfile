@@ -1,25 +1,21 @@
-# Use Node.js 18 Alpine as base image for smaller size
-FROM node:18-alpine AS base
-
-# Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+# Stage 1: Build
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy package files
+# Accept build-time variable
+ARG VITE_GEMINI_API
+ENV VITE_GEMINI_API=$VITE_GEMINI_API
+
 COPY package.json package-lock.json* ./
 RUN npm ci
-
-# Production image, use Node.js to serve with runtime env vars
-FROM base AS runner
-WORKDIR /app
-
-# Copy dependencies and source
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-EXPOSE 80
+# Build with env variable
+RUN npm run build
 
-# Build and run with environment variables passed at runtime
-CMD sh -c 'npm run build && npm run preview -- --host 0.0.0.0 --port 80' 
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
+COPY --from=builder /app/dist ./
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
