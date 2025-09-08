@@ -2,6 +2,10 @@
 FROM node:18-alpine AS builder
 WORKDIR /app
 
+# Accept build-time variable
+ARG VITE_GEMINI_API
+ENV VITE_GEMINI_API=$VITE_GEMINI_API
+
 COPY package.json package-lock.json* ./
 RUN npm ci
 COPY . .
